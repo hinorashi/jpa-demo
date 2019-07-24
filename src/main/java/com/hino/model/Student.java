@@ -9,12 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
-@Setter
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "student")
 public class Student {
@@ -33,14 +37,4 @@ public class Student {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "deptId", nullable = false, referencedColumnName = "id")
   private Department department;
-
-  @Override
-  public String toString() {
-    return "Student{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", mobile=" + mobile +
-        ", department=" + department +
-        '}';
-  }
 }

@@ -5,12 +5,17 @@ import com.hino.model.Department;
 import com.hino.model.Student;
 import com.hino.repo.CompanyRepository;
 import com.hino.repo.DepartmentRepository;
+import com.hino.repo.StudentRepository;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@Slf4j
 @SpringBootApplication
 public class JpaDemoApplication implements CommandLineRunner {
 
@@ -19,6 +24,9 @@ public class JpaDemoApplication implements CommandLineRunner {
 
   @Autowired
   private DepartmentRepository departmentRepository;
+
+  @Autowired
+  private StudentRepository studentRepository;
 
   public static void main(String[] args) {
 
@@ -29,55 +37,41 @@ public class JpaDemoApplication implements CommandLineRunner {
   public void run(String... args) {
 
     //Unidirectional Mapping
-/*		Department department = new Department();
-		department.setName("COMPUTER");
-        departmentRepository.save(department);
+//    Department department = new Department();
+//    department.setName("COMPUTER");
+//    departmentRepository.save(department);
+//
+//    Student student = new Student();
+//    student.setDepartment(departmentRepository.findDepartmentByName("COMPUTER"));
+//    student.setName("Anup");
+//    student.setMobile(989911);
+//    Student student1 = new Student();
+//    student1.setDepartment(departmentRepository.findDepartmentByName("IT"));
+//    student1.setName("John");
+//    student1.setMobile(89774);
+//    studentRepository.saveAll(Arrays.asList(student, student1));
 
-		Student student = new Student();
-		student.setDepartment(departmentRepository.findDepartmentByName("COMPUTER"));
-		student.setName("Anup");
-		student.setMobile(989911);
-		Student student1 = new Student();
-		student1.setDepartment(departmentRepository.findDepartmentByName("IT"));
-		student1.setName("John");
-		student1.setMobile(89774);
-		studentRepository.saveAll(Arrays.asList(student,student1));*/
-
-// init company
-    Company company = new Company();
-    company.setId(68L);
-    company.setName("CMC");
-    companyRepository.save(company);
+    // init company
+    Company company = Company.builder().id(68L).name("CMC").build();
 
     //Bi-directional mapping
-    Department department1 = new Department();
-    department1.setCompany(company);
-    department1.setName("IT");
+    Department department = Department.builder().name("DevOps").company(company).build();
 
     //Students list
-    Student student = new Student();
-    student.setName("Danny");
-    student.setMobile(33333);
-    student.setDepartment(department1);
-    Student student1 = new Student();
-    student1.setName("Mark");
-    student1.setMobile(11111);
-    student1.setDepartment(department1);
+    Student student = Student.builder().name("Zed").mobile(696969).department(department).build();
+    Student otherStudent = Student.builder().name("Ekko").mobile(777777).department(department).build();
 
-    //department1.setStudentList(Arrays.asList(student,student1));
-    department1.getStudentList().add(student);
-    department1.getStudentList().add(student1);
+    department.setStudentList(new HashSet<>(Arrays.asList(student, otherStudent)));
 
-    company.setDepartmentList(Collections.singleton(department1));
+    company.setDepartmentList(Collections.singleton(department));
 
     companyRepository.save(company);
 
-    //Get the list of students from department
-    Department department = departmentRepository.findDepartmentById(1l);
+    companyRepository.findAll().forEach(comp -> log.info(comp.toString()));
 
-    for (Student s : department.getStudentList()) {
-      System.out.println(s);
-    }
+    departmentRepository.findAll().forEach(dept -> log.info(dept.toString()));
+
+    studentRepository.findAll().forEach(stud -> log.info(stud.toString()));
 
   }
 
