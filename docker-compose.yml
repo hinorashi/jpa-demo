@@ -1,6 +1,5 @@
 version: "3"
 services:
-  # Single DB instance - Single DB schema per service
   postgres:
     container_name: "postgres"
     image: postgres:10.9
@@ -9,6 +8,6 @@ services:
       POSTGRES_USER: "rmhub"
       POSTGRES_PASSWORD: "123456"
     volumes:
-      - /rmhub/pgdata:/var/lib/postgresql/data
+      - /tmp/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"

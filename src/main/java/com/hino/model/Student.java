@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name = "STUDENT")
+@Table(name = "student")
 public class Student {
 
   @Id
@@ -32,7 +31,7 @@ public class Student {
 
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "departmentId", nullable = false, referencedColumnName = "id")
+  @JoinColumn(name = "deptId", nullable = false, referencedColumnName = "id")
   private Department department;
 
   @Override

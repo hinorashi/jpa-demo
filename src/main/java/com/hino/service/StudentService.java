@@ -9,5 +9,5 @@ public interface StudentService {
 
   List<Student> getStudents();
 
-  List<Student> test(Long deptId);
+  List<Student> findAllByDepartmentId(Long deptId);
 }

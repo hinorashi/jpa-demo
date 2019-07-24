@@ -5,7 +5,6 @@ import com.hino.model.Department;
 import com.hino.model.Student;
 import com.hino.repo.CompanyRepository;
 import com.hino.repo.DepartmentRepository;
-import com.hino.repo.StudentRepository;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringbootJpaOneToManyDemoApplication implements CommandLineRunner {
+public class JpaDemoApplication implements CommandLineRunner {
 
   @Autowired
   private CompanyRepository companyRepository;
@@ -21,12 +20,9 @@ public class SpringbootJpaOneToManyDemoApplication implements CommandLineRunner 
   @Autowired
   private DepartmentRepository departmentRepository;
 
-  @Autowired
-  private StudentRepository studentRepository;
-
   public static void main(String[] args) {
 
-    SpringApplication.run(SpringbootJpaOneToManyDemoApplication.class, args);
+    SpringApplication.run(JpaDemoApplication.class, args);
   }
 
   @Override

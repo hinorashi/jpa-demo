@@ -47,7 +47,7 @@ public class StudentController {
   }
 
   @GetMapping("/{deptId}")
-  public ResponseEntity getStudentsByDepartment(@PathVariable Long deptId) {
-    return ResponseEntity.ok(studentService.test(deptId));
+  public ResponseEntity findAllByDepartmentId(@PathVariable Long deptId) {
+    return ResponseEntity.ok(studentService.findAllByDepartmentId(deptId));
   }
 }

@@ -24,9 +24,9 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<Student> test(Long deptId) {
+  public List<Student> findAllByDepartmentId(Long deptId) {
     Department department = new Department();
     department.setId(deptId);
-    return studentRepository.findAllByDepartmentId(deptId);
+    return studentRepository.findAllByDepartment_id(deptId);
   }
 }
