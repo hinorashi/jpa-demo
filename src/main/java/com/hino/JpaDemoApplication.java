@@ -51,13 +51,13 @@ public class JpaDemoApplication implements CommandLineRunner {
 //    student1.setMobile(89774);
 //    studentRepository.saveAll(Arrays.asList(student, student1));
 
-    // init company
+    //Bi-directional mapping
     Company company = Company.builder().id(68L).name("CMC").build();
 
-    //Bi-directional mapping
+    // create department
     Department department = Department.builder().name("DevOps").company(company).build();
 
-    //Students list
+    // create student
     Student student = Student.builder().name("Zed").mobile(696969).department(department).build();
     Student otherStudent = Student.builder().name("Ekko").mobile(777777).department(department).build();
 
@@ -65,6 +65,7 @@ public class JpaDemoApplication implements CommandLineRunner {
 
     company.setDepartmentList(Collections.singleton(department));
 
+    // save them all
     companyRepository.save(company);
 
     companyRepository.findAll().forEach(comp -> log.info(comp.toString()));

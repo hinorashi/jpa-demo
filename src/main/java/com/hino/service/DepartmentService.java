@@ -1,14 +1,15 @@
 package com.hino.service;
 
-import com.hino.exception.NotFoundException;
 import com.hino.model.Department;
 import java.util.List;
 
 public interface DepartmentService {
 
-  Department saveDepartment(Department department);
+  Department getOne(Long id);
 
-  List<Department> getDepartments();
+  Department save(Department department);
 
-  Department findDepartment(String name) throws NotFoundException;
+  List<Department> findAll();
+
+  Department findDepartment(String name);
 }

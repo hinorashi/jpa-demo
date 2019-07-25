@@ -23,16 +23,13 @@ public class DepartmentController {
     this.departmentService = departmentService;
   }
 
-  @PostMapping
-  public ResponseEntity<Department> saveDepartment(@RequestBody Department department) {
-    Department result = departmentService.saveDepartment(department);
-    log.info("Saved successfully...");
-    return ResponseEntity.ok(result);
-  }
-
   @GetMapping
-  public ResponseEntity<?> getDepartments() {
-    return ResponseEntity.ok(departmentService.getDepartments());
+  public ResponseEntity<?> list() {
+    return ResponseEntity.ok(departmentService.findAll());
   }
 
+  @PostMapping
+  public ResponseEntity<?> save(@RequestBody Department department) {
+    return ResponseEntity.ok(departmentService.save(department));
+  }
 }

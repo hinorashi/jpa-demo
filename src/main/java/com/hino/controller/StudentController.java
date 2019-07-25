@@ -12,21 +12,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("students")
 public class StudentController {
 
-  @Autowired
-  StudentService studentService;
+  private final StudentService studentService;
+
+  private final DepartmentService departmentService;
 
   @Autowired
-  DepartmentService departmentService;
+  public StudentController(StudentService studentService, DepartmentService departmentService) {
+    this.studentService = studentService;
+    this.departmentService = departmentService;
+  }
 
   @GetMapping
-  public ResponseEntity<?> getStudents() {
-    return ResponseEntity.ok(studentService.getStudents());
+  public ResponseEntity<?> list() {
+    return ResponseEntity.ok(studentService.findAll());
+  }
+
+  @PostMapping(params = "deptName")
+  public ResponseEntity<?> saveStudent(@RequestBody Student student, @RequestParam String deptName) {
+    Department department = departmentService.findDepartment(deptName.toUpperCase());
+
+    student.setDepartment(department);
+
+    return ResponseEntity.ok(studentService.save(student));
+
   }
 
   @PostMapping("/{deptName}")
@@ -38,7 +53,7 @@ public class StudentController {
         student.setDepartment(dept);
       }
 
-      studentService.saveStudent(studentList);
+      studentService.saveAll(studentList);
       return "Student saved successfully..";
     } catch (Exception ex) {
       ex.printStackTrace();
@@ -46,8 +61,8 @@ public class StudentController {
     }
   }
 
-  @GetMapping("/{deptId}")
-  public ResponseEntity findAllByDepartmentId(@PathVariable Long deptId) {
+  @GetMapping(params = "deptId")
+  public ResponseEntity findAllByDepartmentId(@RequestParam Long deptId) {
     return ResponseEntity.ok(studentService.findAllByDepartmentId(deptId));
   }
 }

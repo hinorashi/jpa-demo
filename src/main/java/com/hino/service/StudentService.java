@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface StudentService {
 
-  List<Student> saveStudent(List<Student> studentList);
+  Student save(Student student);
 
-  List<Student> getStudents();
+  List<Student> saveAll(List<Student> studentList);
+
+  List<Student> findAll();
 
   List<Student> findAllByDepartmentId(Long deptId);
 }
