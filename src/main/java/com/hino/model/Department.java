@@ -45,6 +45,6 @@ public class Department {
 
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "compId", nullable = false, referencedColumnName = "id")
+  @JoinColumn(name = "compId", nullable = false)
   private Company company;
 }

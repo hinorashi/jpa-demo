@@ -35,6 +35,6 @@ public class Student {
 
   @ToString.Exclude
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "deptId", nullable = false, referencedColumnName = "id")
+  @JoinColumn(name = "deptId", nullable = false)
   private Department department;
 }
