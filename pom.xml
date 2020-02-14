@@ -15,7 +15,7 @@
   <description>Demo project for Spring Data JPA</description>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>8</java.version>
   </properties>
 
   <dependencies>
@@ -70,6 +70,12 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/colt/colt -->
